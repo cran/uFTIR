@@ -1,8 +1,8 @@
 Package: uFTIR
 Type: Package
 Title: Process and Analyze Agilent Cary 620 FTIR Microscope Images
-Version: 0.1.0
-Date: 2020-02-20
+Version: 0.1.1
+Date: 2020-03-10
 Authors@R: 
     person(
       given = "Fabio",
@@ -19,7 +19,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.4.4.0), parallel
 Imports: Rcpp (>= 1.0.2), methods, raster, sp, rgdal
-Suggests: rmarkdown, testthat (>= 2.1.0), prospectr
+Suggests: testthat (>= 2.1.0), signal
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.0.2
 Collate: 'RcppExports.R' 'classes.R' 'clipper.R' 'datadocs.R'
@@ -30,7 +30,7 @@ Collate: 'RcppExports.R' 'classes.R' 'clipper.R' 'datadocs.R'
         'tile_sam.R' 'uFTIR.R' 'wavealign.R'
 SystemRequirements: C++11
 NeedsCompilation: yes
-Packaged: 2020-02-21 14:01:59 UTC; fabio
+Packaged: 2020-03-10 16:52:30 UTC; fabio
 Author: Fabio Corradini [aut, cre] (<https://orcid.org/0000-0001-9696-7643>)
 Repository: CRAN
-Date/Publication: 2020-03-06 16:40:02 UTC
+Date/Publication: 2020-03-11 23:30:02 UTC

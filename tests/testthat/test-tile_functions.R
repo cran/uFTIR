@@ -80,6 +80,9 @@ test_that("Summary methods are equivalent for Smooth, SAM and clipper objects", 
   out3 <- summary_sam(z, clusternames = primpke@clusternames, temporal = TRUE)
   
   expect_true(all.equal(out1, out2) & all.equal(out2, out3))
+  
+  out4 <- summary_sam(z, clusternames = NULL, temporal = TRUE)
+  expect_equal(ncol(out4), 2)
 })
 
 test_that("get_profile can plot as side effect", {
@@ -100,14 +103,15 @@ test_that("Preprocess is not changing the output whimsically", {
   expect_true(sum(y@Spectra == x@Spectra) == prod(dim(x@Spectra)))
 })
 
-test_that("Preprocess for SpectralPack object is reshaping the wavenumbers", {
-  library(prospectr)
-  x <- tile_read(system.file("extdata", "tile.bsp", package="uFTIR"))
-  x <- tile_base_corr(x)
-  x <- wavealign(x, primpke)
-  preprocess(x, function(x){savitzkyGolay(x, 1, 3, 11, delta.wav = 2)})
-  
-  expect_true(dim(x@Readings@Spectra)[3] == length(x@Readings@wavenumbers))
-  expect_true(ncol(x@Reference@Spectra) == length(x@Reference@wavenumbers))
-  expect_true(length(x@Readings@wavenumbers) == length(x@Reference@wavenumbers))
-})
+if(requireNamespace("signal", quietly = TRUE)){
+  test_that("Preprocess for SpectralPack object is reshaping the wavenumbers", {
+    x <- tile_read(system.file("extdata", "tile.bsp", package="uFTIR"))
+    x <- tile_base_corr(x)
+    x <- wavealign(x, primpke)
+    preprocess(x, function(x){signal::sgolayfilt(x)})
+    
+    expect_true(dim(x@Readings@Spectra)[3] == length(x@Readings@wavenumbers))
+    expect_true(ncol(x@Reference@Spectra) == length(x@Reference@wavenumbers))
+    expect_true(length(x@Readings@wavenumbers) == length(x@Reference@wavenumbers))
+  })
+}
